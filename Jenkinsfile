@@ -19,7 +19,7 @@ pipeline {
         stage('Clone REPO and build Docker image') {
             steps {
                 checkout scm
-                sh 'docker build -t django-devops:{IMAGE_TAGE} .'
+                sh 'docker build -t django-devops:${IMAGE_TAGE} .'
             }
         }
 
