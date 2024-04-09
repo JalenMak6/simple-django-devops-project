@@ -2,6 +2,9 @@ pipeline {
     agent {
         label 'django-agent'
     }
+    environment {
+        IMAGE_TAG = '1.0.0'
+    }
     stages {
         stage('Cleanup') {
             steps {
@@ -13,9 +16,10 @@ pipeline {
                 echo "The node name: ${NODE_NAME}"
             }
         }
-        stage('Clone REPO') {
+        stage('Clone REPO and build Docker image') {
             steps {
                 checkout scm
+                sh 'docker build -t django-devops:{IMAGE_TAGE} .'
             }
         }
 
