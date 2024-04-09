@@ -13,6 +13,12 @@ pipeline {
                 echo "The node name: ${NODE_NAME}"
             }
         }
+        stage('Clone REPO') {
+            steps {
+                checkout scm
+            }
+        }
+
     }
 
 }
