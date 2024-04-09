@@ -22,6 +22,13 @@ pipeline {
                 sh 'docker build -t django-devops .'
             }
         }
+        stage('Run the container and test') {
+            steps {
+                sh 'docker run -d --name dev-app -p 8080:8080 django-devops'
+                sh 'curl localhost:8080'
+            }
+        }
+        
 
     }
 
