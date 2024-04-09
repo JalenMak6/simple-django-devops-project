@@ -24,7 +24,7 @@ pipeline {
         }
         stage('Run the container and test') {
             steps {
-                sh 'docker run -d --name dev-app -p 8080:8080 django-devops'
+                sh 'docker run -d --name dev-app -p 8080:8000 django-devops'
                 script {
                     try {
                         sh 'curl -s -o /dev/null -w "%{http_code}" localhost:8080 > curl_result'
