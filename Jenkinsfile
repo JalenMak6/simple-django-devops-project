@@ -24,20 +24,21 @@ pipeline {
         }
         stage('Run the container and test') {
             steps {
-                sh 'docker run -d --name dev-app -p 8080:8000 django-devops'
-                try {
-                    script {
-                        sh 'curl -s -o /dev/null -w "%{http_code}" 127.0.0.1:8080 > curl_result'
+                sh 'docker run -d --name dev-app -p 8080:8080 django-devops'
+                script {
+                    try {
+                        sh 'curl -s -o /dev/null -w "%{http_code}" localhost:8080 > curl_result'
                         def responseCode = readFile('curl_result').trim()
                         if (responseCode != '200') {
                             error("HTTP response code is not 200. Skipping step10 and proceeding to step20.")
                         }
+                    } catch (Exception e) {
+                        error("Failed to execute curl command: ${e.message}")
                     }
-                } catch (Exception e) {
-                    error("Failed to execute curl command: ${e.message}")
                 }
             }
         }
+
 
         stage('step10') {
             steps {
