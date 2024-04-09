@@ -30,7 +30,7 @@ pipeline {
 
         stage('test') {
             steps {
-                sh 'curl localhost:8080'
+                sh 'curl -I localhost:8080'
             }   
         }
 
