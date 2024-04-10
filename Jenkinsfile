@@ -29,7 +29,7 @@ pipeline {
                 steps {
                     script {
                         try {
-                            sh "docker run -d --name ${CONTAINER_NAME} -p 80800:8000 ${APP_NAME}"
+                            sh "docker run -d --name ${CONTAINER_NAME} -p 8080:8000 ${APP_NAME}"
                             sh "curl -s -o /dev/null -w \"%{http_code}\" 192.168.1.243:9000"
                         }
                         catch (Exception e) {
