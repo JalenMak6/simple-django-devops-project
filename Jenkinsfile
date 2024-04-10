@@ -4,6 +4,8 @@ pipeline {
     }
     environment {
         IMAGE_TAG = '1.0.0'
+        APP_NAME = 'django-devops'
+        CONTAINER_NAME = 'django-devops-test'
     }
     stages {
         stage('Cleanup') {
@@ -19,12 +21,13 @@ pipeline {
         stage('Clone REPO and build Docker image') {
             steps {
                 checkout scm
-                sh 'docker build -t django-devops .'
+                git branch: 'main', url: 'https://github.com/JalenMak6/simple-django-devops-project'
+                sh 'docker build -t ${APP_NAME} .'
             }
         }
         stage('Run the container') {
             steps {
-                sh 'docker run -d --name dev-app -p 8080:8000 django-devops'
+                sh 'docker run -d --name ${CONTAINER_NAME} -p 8080:8000 ${APP_NAME}'
             }
         }
 
