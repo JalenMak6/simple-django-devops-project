@@ -27,7 +27,7 @@ pipeline {
         }
         stage('Run the Docker image') {
             steps {
-                    sh "docker run -d --name ${CONTAINER_NAME} -o 8080:8000 ${APP_NAME}"
+                    sh "docker run -d --name ${CONTAINER_NAME} -p 8080:8000 ${APP_NAME}"
                 }
             }
 
