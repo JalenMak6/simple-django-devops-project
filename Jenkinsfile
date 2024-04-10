@@ -31,17 +31,26 @@ pipeline {
             }
         }
 
-        stage('test') {
+        stage('Test') {
             steps {
-                sh 'curl -I localhost:8080'
-            }   
+                script {
+                    def responseCode = sh(returnStatus: true, script: "curl -s -o /dev/null -w \"%{http_code}\" localhost:8080").trim()
+                    if (responseCode == '200') {
+                        echo "HTTP response code is 200. Proceeding to Step Stop and Remove the docker container."
+                    } else {
+                        echo "HTTP response code is not 200. Skipping Step 10 and proceeding to Step 20."
+                        currentBuild.result = 'ABORTED'
+                    }
+                }
+            }
         }
 
-
-        stage('step10') {
+        stage('Stop and Remove the docker container') {
             steps {
                 // This stage will be skipped if the HTTP response code was not 200
                 echo "Step10"
+                sh ' docker stop ${CONTAINER_NAME}'
+                sh 'docker rm ${CONTAINER_NAME}'
             }
         }
         stage('step20') {
