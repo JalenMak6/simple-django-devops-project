@@ -29,14 +29,20 @@ pipeline {
                 steps {
                     script {
                         try {
-                            sh "curl -s -o /dev/null -w \"%{http_code}\" localhost:8000"
+                            sh "curl -s -o /dev/null -w \"%{http_code}\" localhost:8080"
                         }
                         catch (Exception e) {
                             echo "Failed to execute curl command: ${e.message}"
-                            echo "Ignoring step20"
+                            error "Test failed"
                         }
                     }
                 }
+            post {
+                failure {
+                    echo "Skipping step20 due to test failure"
+                    currentBuild.result = 'FAILURE'
+                }
+            }
             }
 
         stage('Stop and Remove the docker container') {
@@ -48,6 +54,9 @@ pipeline {
             }
         }
         stage('step20') {
+            when {
+                expression { currentBuild.result != 'FAILURE' }
+            }
             steps {
                 echo "Step20"
             }
