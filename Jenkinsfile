@@ -33,6 +33,7 @@ pipeline {
 
         stage('Test curl') {
             steps {
+                sh "netstat -ntlp"
                 sh " curl -X GET localhost:8000"
             }
         }
