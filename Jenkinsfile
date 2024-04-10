@@ -31,12 +31,22 @@ pipeline {
                 }
             }
 
-        stage('Test') {
+        stage('Test Container') {
             steps {
-                    sh "curl localhost:8080"
+                script {
+                    def responseCode = sh(
+                        script: "curl -s -o /dev/null -w \"%{http_code}\" localhost:8080",
+                        returnStdout: true
+                    ).trim()
+
+                    if (responseCode == '200') {
+                        echo 'Container is running and accessible.'
+                    } else {
+                        error 'Container is not running or not accessible.'
+                    }
                 }
             }
-
+        }
 
 
         // stage('Stop and Remove the docker container') {
