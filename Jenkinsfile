@@ -27,15 +27,14 @@ pipeline {
         }
         stage('Run the Docker image') {
             steps {
-                    sh "docker run -d --name ${CONTAINER_NAME} -p 8080:8000 ${APP_NAME}"
+                    sh "docker run -d --name ${CONTAINER_NAME} --network host ${APP_NAME}"
                 }
             }
 
         stage('Test curl') {
             steps {
-                sh " curl -X GET 192.168.1.243:8080"
+                sh " curl -X GET localhost:8000"
             }
-
         }
 
 
