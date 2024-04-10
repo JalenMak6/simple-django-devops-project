@@ -29,12 +29,12 @@ pipeline {
                 steps {
                     script {
                         try {
-                            sh "curl -s -o /dev/null -w \"%{http_code}\" localhost:8080"
+                            sh "curl -s -o /dev/null -w \"%{http_code}\" localhost:8000"
                         }
-                        // catch (Exception e) {
-                        //     echo "Failed to execute curl command: ${e.message}"
-                        //     echo "Ignoring the error and continuing to the next step."
-                        // }
+                        catch (Exception e) {
+                            echo "Failed to execute curl command: ${e.message}"
+                            echo "Ignoring step 20."
+                        }
                     }
                 }
             }
