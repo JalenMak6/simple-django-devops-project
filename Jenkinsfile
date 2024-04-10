@@ -33,15 +33,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                script {
-                    def responseCode = sh(returnStatus: true, script: "curl -s -o /dev/null -w \"%{http_code}\" localhost:8080").trim()
-                    if (responseCode == '200') {
-                        echo "HTTP response code is 200. Proceeding to Step Stop and Remove the docker container."
-                    } else {
-                        echo "HTTP response code is not 200. Skipping Step 10 and proceeding to Step 20."
-                        currentBuild.result = 'ABORTED'
-                    }
-                }
+                sh ' curl localhost:8080'
             }
         }
 
