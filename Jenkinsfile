@@ -33,7 +33,7 @@ pipeline {
 
         stage('Test curl') {
             steps {
-                sh " curl -X GET django-devops-test:8080"
+                sh " curl -X GET 192.168.1.243:8080"
             }
 
         }
