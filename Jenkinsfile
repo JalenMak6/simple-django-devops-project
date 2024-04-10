@@ -29,8 +29,8 @@ pipeline {
                 steps {
                     script {
                         try {
-                            sh "docker run -d --name ${CONTAINER_NAME} -p 8080:8000 ${APP_NAME}"
-                            sh "curl -s -o /dev/null -w \"%{http_code}\" 192.168.1.243:8080"
+                            sh "docker run -d --name ${CONTAINER_NAME} -p 9000:8000 ${APP_NAME}"
+                            sh "curl -s -o /dev/null -w \"%{http_code}\" 192.168.1.243:9000"
                         }
                         catch (Exception e) {
                             echo "Failed to execute curl command: ${e.message}"
