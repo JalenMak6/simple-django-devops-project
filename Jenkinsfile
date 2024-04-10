@@ -31,6 +31,13 @@ pipeline {
                 }
             }
 
+        stage('Test') {
+            steps {
+                    sh "curl 192.168.1.243:8080"
+                }
+            }
+
+
 
         // stage('Stop and Remove the docker container') {
         //     steps {
