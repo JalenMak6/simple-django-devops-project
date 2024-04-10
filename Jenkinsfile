@@ -33,7 +33,7 @@ pipeline {
                         }
                         catch (Exception e) {
                             echo "Failed to execute curl command: ${e.message}"
-                            echo "Ignoring step 20."
+                            echo "Ignoring step20"
                         }
                     }
                 }
@@ -43,8 +43,8 @@ pipeline {
             steps {
                 // This stage will be skipped if the HTTP response code was not 200
                 echo "Step10"
-                sh ' docker stop ${CONTAINER_NAME}'
-                sh 'docker rm ${CONTAINER_NAME}'
+                sh  "docker stop ${CONTAINER_NAME}"
+                sh "docker rm ${CONTAINER_NAME}"
             }
         }
         stage('step20') {
