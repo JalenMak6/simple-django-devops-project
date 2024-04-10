@@ -34,7 +34,7 @@ pipeline {
         stage('Test curl') {
             steps {
                 sh "netstat -ntlp"
-                sh "sleep 5"
+                // sh "sleep 5"
                 sh " curl -X GET localhost:8080"
             }
         }
