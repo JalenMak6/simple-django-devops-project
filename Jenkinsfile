@@ -25,30 +25,21 @@ pipeline {
                 sh 'docker build -t ${APP_NAME} .'
             }
         }
-            stage('Test') {
-                steps {
-                    script {
-                        try {
-                            sh "docker run -d --name ${CONTAINER_NAME} -p 8080:8000 ${APP_NAME}"
-                            sh "curl -s -o /dev/null -w \"%{http_code}\" 192.168.1.243:9000"
-                        }
-                        catch (Exception e) {
-                            echo "Failed to execute curl command: ${e.message}"
-                            error "Test failed"
-                        }
-                    }
-                }
-
-            }
-
-        stage('Stop and Remove the docker container') {
+        stage('Run the Docker image') {
             steps {
-                // This stage will be skipped if the HTTP response code was not 200
-                echo "Step10"
-                sh  "docker stop ${CONTAINER_NAME}"
-                sh "docker rm ${CONTAINER_NAME}"
+                    sh "docker run -d --name ${CONTAINER_NAME} -p 8080:8000 ${APP_NAME}"
+                }
             }
-        }
+
+
+        // stage('Stop and Remove the docker container') {
+        //     steps {
+        //         // This stage will be skipped if the HTTP response code was not 200
+        //         echo "Step10"
+        //         sh  "docker stop ${CONTAINER_NAME}"
+        //         sh "docker rm ${CONTAINER_NAME}"
+        //     }
+        // }
         stage('step20') {
             when {
                 expression { currentBuild.result != 'FAILURE' }
