@@ -35,7 +35,7 @@ pipeline {
             steps {
                 sh "netstat -ntlp"
                 sh "sleep 5"
-                sh " curl -X GET localhost:8080"
+                sh " curl -X GET localhost:8000"
             }
         }
     }
