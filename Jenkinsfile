@@ -3,7 +3,7 @@ pipeline {
         label 'django-agent'
     }
     environment {
-        IMAGE_TAG = "1.0.0"
+        RELEASE = "1.0.0"
         APP_NAME = "django-devops"
         CONTAINER_NAME = "django-devops-test"
         DOCKER_USER = "604969"
