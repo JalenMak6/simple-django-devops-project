@@ -45,9 +45,10 @@ pipeline {
             sh "docker ps"
         }
         unsuccessful {
-            echo "This is afailure"
+            echo "Error - Cannot curl the endpoint"
             sh "docker stop ${CONTAINER_NAME}"
             sh "docker rm ${CONTAINER_NAME}"
+            sh "docker system prune -f"
         }
     }
 }
