@@ -1,0 +1,5 @@
+{
+    "yaml.schemas": {
+        "https://json.schemastore.org/yamllint.json": "file:///Users/jalenmak/Desktop/simple-django-devops-project/deployment.yml"
+    }
+}
