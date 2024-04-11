@@ -51,7 +51,7 @@ pipeline {
             echo "Push the image to the dockerhub"
             script{
             docker.withRegistry('',DOCKER_PASS){
-                docker_image = docker.build "${APP_NAME}"
+                docker_image = docker.build "${DOCKER_IMAGE}"
             }
 
             docker.withRegistry('',DOCKER_PASS){
