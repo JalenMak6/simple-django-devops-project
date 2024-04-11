@@ -6,6 +6,11 @@ pipeline {
         IMAGE_TAG = "1.0.0"
         APP_NAME = "django-devops"
         CONTAINER_NAME = "django-devops-test"
+        DOCKER_USER = "604969"
+        DOCKER_PASS = 'dockerhub'
+        DOCKER_IMAGE = "${DOCKER_USER}" + "/" + "${APP_NAME}"
+        IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
+
     }
     stages {
         stage('Cleanup') {
@@ -43,6 +48,17 @@ pipeline {
         success {
             echo "this is succssful"
             sh "docker ps"
+            echo "Push the image to the dockerhub"
+            script{
+            docker.withRegistry('',DOCKER_PASS){
+                docker_image = docker.build "${IMAGE_NAME}"
+            }
+
+            docker.withRegistry('',DOCKER_PASS){
+                docker_image.push("${IMAGE_TAG}")
+                docker_image.push("latest")
+            }
+        }
         }
         unsuccessful {
             echo "Error - Cannot curl the endpoint"
