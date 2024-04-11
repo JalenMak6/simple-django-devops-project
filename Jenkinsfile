@@ -20,9 +20,10 @@ pipeline {
         }
         stage('Clone REPO and build Docker image') {
             steps {
-                    git branch: 'main', url: 'https://github.com/JalenMak6/simple-django-devops-project'
-                    sh "docker build -t ${APP_NAME} ."
-                }
+                checkout scm
+                git branch: 'main', url: 'https://github.com/JalenMak6/simple-django-devops-project'
+                sh 'docker build -t ${APP_NAME} .'
+            }
             }
         stage('Run the Docker image') {
             steps {
