@@ -3,13 +3,13 @@ pipeline {
         label 'django-agent'
     }
     environment {
-        RELEASE = "1.0.0"
+        RELEASE = "1.0"
         APP_NAME = "django-devops"
         CONTAINER_NAME = "django-devops-test"
         DOCKER_USER = "604969"
         DOCKER_PASS = 'dockerhub'
         DOCKER_IMAGE = "${DOCKER_USER}" + "/" + "${APP_NAME}"
-        IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
+        IMAGE_TAG = "${RELEASE}:${BUILD_NUMBER}"
 
     }
     stages {
