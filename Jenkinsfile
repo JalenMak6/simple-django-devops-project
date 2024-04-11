@@ -38,20 +38,11 @@ pipeline {
                 sh " curl -X GET localhost:8080"
             }
         }
-
-
-        stage('Stop and Remove the docker container') {
-            steps {
-                // This stage will be skipped if the HTTP response code was not 200
-                echo "Step10"
-                sh  "docker stop ${CONTAINER_NAME}"
-                sh "docker rm ${CONTAINER_NAME}"
-            }
-        }
     }
     post {
         success {
             echo "this is succssful"
+            sh "docker ps"
         }
         unsuccessful {
             echo "This is afailure"
