@@ -3,9 +3,9 @@ pipeline {
         label 'django-agent'
     }
     environment {
-        IMAGE_TAG = '1.0.0'
-        APP_NAME = 'django-devops'
-        CONTAINER_NAME = 'django-devops-test'
+        IMAGE_TAG = "1.0.0"
+        APP_NAME = "django-devops"
+        CONTAINER_NAME = "django-devops-test"
     }
     stages {
         stage('Cleanup') {
@@ -20,9 +20,11 @@ pipeline {
         }
         stage('Clone REPO and build Docker image') {
             steps {
-                checkout scm
-                git branch: 'main', url: 'https://github.com/JalenMak6/simple-django-devops-project'
-                sh 'docker build -t ${APP_NAME} .'
+                script {
+                    checkout scm
+                    git branch: 'main', url: 'https://github.com/JalenMak6/simple-django-devops-project'
+                    sh "docker build -t ${APP_NAME} ."
+                }
             }
         }
         stage('Run the Docker image') {
@@ -48,10 +50,15 @@ pipeline {
                 sh "docker rm ${CONTAINER_NAME}"
             }
         }
-        stage('step20') {
-            steps {
-                echo "Step20"
-            }
+    }
+    post {
+        success {
+            echo "this is succssful"
+        }
+        unsuccessful {
+            echo "This is afailure"
+            sh "docker stop ${CONTAINER_NAME}"
+            sh "docker rm ${CONTAINER_NAME}"
         }
     }
 }
