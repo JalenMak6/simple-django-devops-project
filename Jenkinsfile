@@ -60,7 +60,7 @@ pipeline {
             }
         }
         }
-        unsuccessful {
+        always {
             echo "Error - Cannot curl the endpoint"
             sh "docker stop ${CONTAINER_NAME}"
             sh "docker rm ${CONTAINER_NAME}"
