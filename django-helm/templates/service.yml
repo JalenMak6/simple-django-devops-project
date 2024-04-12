@@ -1,0 +1,15 @@
+## Following the GitOps practices,
+## We will put the deployment.yml and service.yml to a different repository
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.service.svc_name }}
+  namespace: {{ .Values.deployment.namespace }}
+spec:
+  selector:
+    app: {{ .Values.deployment.name }}
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+  type: {{ .Values.service.type }}

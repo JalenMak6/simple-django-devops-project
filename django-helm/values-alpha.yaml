@@ -1,0 +1,15 @@
+# Default values for django-helm.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+deployment: 
+  name: django-devops-2
+  namespace: alpha
+  replicas: 3
+  image: 604969/django-devops:latest
+
+service:
+  svc_name: django-devops-svc-2
+  type: ClusterIP
+ingress: 
+  name: django-devops-ingress
+  domain: "django-alpha.example.local"
